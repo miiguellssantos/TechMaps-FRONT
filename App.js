@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Image } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-export default function App() {
+import Roadmaps from "./src/screens/Roadmaps/Roadmaps";
+import DashBoard from "./src/screens/Dashboard/Dashboard";
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="Roadmaps"
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: { backgroundColor: "#ACE894" },
+          tabBarShowLabel: false,
+        }}
+      >
+        <Tab.Screen
+          name="Roadmaps"
+          component={Roadmaps}
+          options={{
+            tabBarIcon: () => {
+              return <Image source={require("./assets/mapIcon.png")} />;
+            },
+          }}
+        />
+        <Tab.Screen
+          name="DashBoard"
+          component={DashBoard}
+          options={{
+            tabBarIcon: () => {
+              return <Image source={require("./assets/dashboardcon.png")} />;
+            },
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
