@@ -1,6 +1,7 @@
 import { Text, View, Pressable, Image } from "react-native";
 import React from "react";
 import styles from "./style";
+import Icon  from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function Header({ title }) {
   return (
@@ -9,10 +10,7 @@ export default function Header({ title }) {
         style={[styles.userIcon, styles.gearsixFlexBox]}
         onPress={() => navigation.navigate("Profile")}
       >
-        <Image
-          style={styles.userVectorIcon}
-          source={require("./assets/profileIcon.png")}
-        />
+        <Icon name={"account-circle-outline"} size={45} color={"#306B34"} />
       </Pressable>
 
       <View style={styles.title}>
@@ -20,10 +18,7 @@ export default function Header({ title }) {
       </View>
 
       <Pressable style={styles.gearsixFlexBox} onPress={() => {}}>
-        <Image
-          style={styles.gearVectorIcon}
-          source={require("./assets/gear.png")}
-        />
+      <Icon name={"cog-outline"} size={40} color={"#306B34"} />
       </Pressable>
     </View>
   );
