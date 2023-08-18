@@ -1,15 +1,31 @@
 import React from "react";
-import { View, Button, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { View, Text, Pressable } from "react-native";
 import styles from "../Roadmaps/style";
-import Header from "../../components/Header";
 import Dashboard from "../../components/Dashboard"
 
-export default function DashBoard() {
+export default function DashBoard({ navigation }) {
     return (
-        <View style={[styles.techmapsRoadmaps, styles.bodySpaceBlock]}>
-          <Header title="DASHBOARD" />
-          <Dashboard />
+        <SafeAreaView style={[styles.techmapsRoadmaps, styles.bodySpaceBlock]}>
+          <View style={styles.header}>
+        <Pressable
+          style={[styles.userIcon, styles.gearsixFlexBox]}
+          onPress={() => navigation.navigate("Profile")}
+        >
+          <Icon name={"account-circle-outline"} size={45} color={"#306B34"} />
+        </Pressable>
+
+        <View style={styles.title}>
+          <Text style={styles.roadmaps}>DASHBOARD</Text>
         </View>
+
+        <Pressable style={styles.gearsixFlexBox} onPress={() => navigation.navigate("SettingsPage")}>
+          <Icon name={"cog-outline"} size={40} color={"#306B34"} />
+        </Pressable>
+      </View>
+          <Dashboard />
+        </SafeAreaView>
     
         
       );

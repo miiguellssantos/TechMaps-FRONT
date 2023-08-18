@@ -1,14 +1,33 @@
-import { Text, View, Button } from "react-native";
+import { View, Pressable, Text } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import styles from "./style";
-import Header from "../../components/Header/index";
 
-export default function Roadmaps() {
+function Roadmaps({ navigation }) {
   return (
-    <View style={[styles.techmapsRoadmaps, styles.bodySpaceBlock]}>
-      <Header title="ROADMAPS" />
-    </View>
+    <SafeAreaView style={[styles.techmapsRoadmaps, styles.bodySpaceBlock]}>
+      <View style={styles.header}>
+        <Pressable
+          style={[styles.userIcon, styles.gearsixFlexBox]}
+          onPress={() => navigation.navigate("Profile")}
+        >
+          <Icon name={"account-circle-outline"} size={45} color={"#306B34"} />
+        </Pressable>
 
-    
+        <View style={styles.title}>
+          <Text style={styles.roadmaps}>ROADMAPS</Text>
+        </View>
+
+        <Pressable
+          style={styles.gearsixFlexBox}
+          onPress={() => navigation.navigate("SettingsPage")}
+        >
+          <Icon name={"cog-outline"} size={40} color={"#306B34"} />
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 }
+
+export default Roadmaps;
