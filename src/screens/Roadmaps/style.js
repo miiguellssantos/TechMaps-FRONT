@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   },
 
   roadmaps: {
+    fontFamily: 'Righteous',
     fontSize: 25,
     color: "#306b34",
     textAlign: "left",

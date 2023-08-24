@@ -3,8 +3,17 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import styles from "./style";
+import { useFonts } from 'expo-font';
 
 function Roadmaps({ navigation }) {
+  const [loaded] = useFonts({
+    Righteous: require('../../../assets/fonts/Righteous-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+  
   return (
     <SafeAreaView style={[styles.techmapsRoadmaps, styles.bodySpaceBlock]}>
       <View style={styles.header}>
