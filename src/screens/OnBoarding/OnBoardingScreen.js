@@ -17,6 +17,7 @@ const OnBoardingScreen = ({ navigation }) => {
     InterRegular: require('../../../assets/fonts/Inter-Regular.ttf'),
     InterSemiBold: require('../../../assets/fonts/Inter-SemiBold.ttf'),
     InterThin: require('../../../assets/fonts/Inter-Thin.ttf'),
+    DMSans: require('../../../assets/fonts/DMSans-Medium.ttf')
   });
 
   if (!loaded) {

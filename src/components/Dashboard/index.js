@@ -2,10 +2,17 @@ import { View, Text } from "react-native";
 import React from "react";
 import styles from "./style";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function index() {
   return (
-    <View style={styles.dashboard}>
+    <LinearGradient
+        style={styles.dashboard}
+        locations={[0, 1]}
+        colors={["#53bb5a", "#306b34"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
       <View style={styles.linhaFlexBox}>
         <View style={styles.roadmaps}>
           <View style={[styles.icon, styles.iconSpaceBlock]}>
@@ -52,6 +59,6 @@ export default function index() {
           </View>
         </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 }

@@ -6,7 +6,7 @@ import styles from "./style";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import InputField from "../../../components/InputField/InputField";
 
-const LoginScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation }) => {
   return (
     <LinearGradient
       style={styles.gradient}
@@ -25,21 +25,11 @@ const LoginScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.container}>
-          <Text style={styles.loginText}>Login</Text>
+          <Text style={styles.loginText}>Registre-se</Text>
           <InputField label="Nome de usuário" icon="account" />
-          <View style={styles.inputView}>
-            <Icon name={"lock"} size={20} color={"#FFF"} />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor={"#FFF"}
-              secureTextEntry={true}
-            />
-
-            <TouchableOpacity onPress={() => {}}>
-              <Text style={styles.esqueceuText}>Esqueceu?</Text>
-            </TouchableOpacity>
-          </View>
+          <InputField label="Email" icon="at" inputType="" />
+          <InputField label="Senha" icon="lock" />
+          <InputField label="Confirme a senha" icon="lock" />
 
           <TouchableOpacity onPress={() => {}}>
             <LinearGradient
@@ -49,12 +39,12 @@ const LoginScreen = ({ navigation }) => {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
             >
-              <Text style={styles.loginButtonText}>LOGIN</Text>
+              <Text style={styles.loginButtonText}>REGISTRE-SE</Text>
               <Icon name="arrow-right" color={"#FFF"} size={25} />
             </LinearGradient>
           </TouchableOpacity>
 
-          <Text style={styles.textLoginCom}>Ou, faça login com...</Text>
+          <Text style={styles.textLoginCom}>Ou, registre-se com...</Text>
 
           <View style={styles.buttons}>
             <TouchableOpacity onPress={() => {}}>
@@ -78,10 +68,10 @@ const LoginScreen = ({ navigation }) => {
           </View>
 
           <View style={styles.registerButton}>
-            <Text style={{ color: "#FFF" }}> Novo por aqui? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("REGISTER")}>
+            <Text style={{ color: "#FFF" }}> Já tem uma conta? </Text>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={{ color: "#eee5e9", fontFamily: "InterBold" }}>
-                Registre-se.
+                Faça login.
               </Text>
             </TouchableOpacity>
           </View>
@@ -91,4 +81,4 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

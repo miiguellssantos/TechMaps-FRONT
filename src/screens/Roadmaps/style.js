@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     zIndex: 1,
     marginTop: 10,
-    backgroundColor: "#ACE894",
+    backgroundColor: "transparent",
     justifyContent: "space-between",
     alignItems: "center",
     borderRadius: 15,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
 
   roadmaps: {
-    fontFamily: 'Righteous',
+    fontFamily: "Righteous",
     fontSize: 25,
     color: "#306b34",
     textAlign: "left",

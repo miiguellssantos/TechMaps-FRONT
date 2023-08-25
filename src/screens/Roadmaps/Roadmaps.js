@@ -3,20 +3,27 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import styles from "./style";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
+import { LinearGradient } from "expo-linear-gradient";
 
 function Roadmaps({ navigation }) {
   const [loaded] = useFonts({
-    Righteous: require('../../../assets/fonts/Righteous-Regular.ttf'),
+    Righteous: require("../../../assets/fonts/Righteous-Regular.ttf"),
   });
 
   if (!loaded) {
     return null;
   }
-  
+
   return (
     <SafeAreaView style={[styles.techmapsRoadmaps, styles.bodySpaceBlock]}>
-      <View style={styles.header}>
+      <LinearGradient
+        style={styles.header}
+        locations={[0, 1]}
+        colors={["#eee5e9", "#ace894"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
         <Pressable
           style={[styles.userIcon, styles.gearsixFlexBox]}
           onPress={() => navigation.navigate("Profile")}
@@ -34,7 +41,7 @@ function Roadmaps({ navigation }) {
         >
           <Icon name={"cog-outline"} size={40} color={"#306B34"} />
         </Pressable>
-      </View>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
