@@ -3,25 +3,25 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#1e1e1e",
+    backgroundColor: "#eee5e9",
+    justifyContent: "space-around"
   },
   title: {
     fontFamily: "Righteous",
     fontSize: 30,
     color: "#ACE894",
+  },
+  startButtonGradient: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 15,
     marginTop: 25,
   },
-  startButton: {
-    backgroundColor: "#ACE984",
-    padding: 20,
-    width: "90%",
-    borderRadius: 5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 25,
-  },
+startButton: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+},
   startButtonText: {
     fontSize: 18,
     color: "#fff",
@@ -30,7 +30,12 @@ const styles = StyleSheet.create({
   image: {
     height: 250,
     width: 330,
-  }
+    marginTop: 25,
+  },
+  content: {
+    width: "90%",
+    marginTop: 45,
+  },
 });
 
 export default styles;

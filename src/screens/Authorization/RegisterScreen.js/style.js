@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   textLoginCom: {
     textAlign: "center",
     color: "#eee5e9",
-    marginBottom: 30,
+    marginVertical: 30,
   },
   googleButton: {
     backgroundColor: "#FFF",
