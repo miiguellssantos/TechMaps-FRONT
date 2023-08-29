@@ -8,14 +8,17 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./style";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import InputField from "../../../components/InputField/InputField";
 import { AuthContext } from "../../../context/AuthContext";
 
 const LoginScreen = ({ navigation }) => {
-  const {login} = useContext(AuthContext)
+  const { login } = useContext(AuthContext);
+
+  const [username, setUsername] = useState(null);
+  const [senha, setSenha] = useState(null);
 
   return (
     <LinearGradient
@@ -40,7 +43,8 @@ const LoginScreen = ({ navigation }) => {
             <InputField
               label="Nome de usuário"
               icon="account"
-              keyboardType="text"
+              value={username}
+              onChangeText={(text) => setUsername(text)}
             />
             <View style={styles.inputView}>
               <Icon name={"lock"} size={20} color={"#FFF"} />
@@ -49,6 +53,8 @@ const LoginScreen = ({ navigation }) => {
                 placeholder="Password"
                 placeholderTextColor={"#FFF"}
                 secureTextEntry={true}
+                value={senha}
+                onChangeText={(text) => setSenha(text)}
               />
 
               <TouchableOpacity onPress={() => {}}>
@@ -56,7 +62,11 @@ const LoginScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity onPress={() => {login()}}>
+            <TouchableOpacity
+              onPress={() => {
+                login(username, senha);
+              }}
+            >
               <LinearGradient
                 style={styles.loginButton}
                 locations={[0, 1]}

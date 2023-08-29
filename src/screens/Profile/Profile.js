@@ -17,12 +17,18 @@ export default function Profile({ navigation }) {
       <Text> Hello World</Text>
 
       <TouchableOpacity
-        style={{ padding: 15, alignItems: "center", backgroundColor: "#ACE894", margin: 20, borderRadius: 20 }}
+        style={{
+          padding: 15,
+          alignItems: "center",
+          backgroundColor: "#ACE894",
+          margin: 20,
+          borderRadius: 20,
+        }}
         onPress={() => {
           logout();
         }}
       >
-        <Text style={{ fontFamily: "Righteous", color: "#FFF"  }} >SAIR</Text>
+        <Text style={{ fontFamily: "Righteous", color: "#FFF" }}>SAIR</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

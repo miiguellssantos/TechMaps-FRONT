@@ -10,6 +10,8 @@ const InputField = ({
   keyboardType,
   fieldButtonLabel,
   fieldButtonFunction,
+  value, 
+  onChangeText
 }) => {
   return (
     <View style={styles.inputView}>
@@ -20,6 +22,8 @@ const InputField = ({
           placeholder={label}
           placeholderTextColor={"#FFF"}
           secureTextEntry={true}
+          value={value}
+          onChangeText={onChangeText}
         />
       ) : (
         <TextInput
@@ -27,6 +31,8 @@ const InputField = ({
           placeholder={label}
           keyboardType={keyboardType}
           placeholderTextColor={"#FFF"}
+          value={value}
+          onChangeText={onChangeText}
         />
       )}
     </View>
