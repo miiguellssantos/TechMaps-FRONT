@@ -7,23 +7,6 @@ import styles from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
 
 const OnBoardingScreen = ({ navigation }) => {
-  const [loaded] = useFonts({
-    Righteous: require("../../../assets/fonts/Righteous-Regular.ttf"),
-    InterBlack: require("../../../assets/fonts/Inter-Regular.ttf"),
-    InterBold: require("../../../assets/fonts/Inter-Bold.ttf"),
-    InterExtraBold: require("../../../assets/fonts/Inter-ExtraBold.ttf"),
-    InterExtraLight: require("../../../assets/fonts/Inter-ExtraLight.ttf"),
-    InterLight: require("../../../assets/fonts/Inter-Light.ttf"),
-    InterMedium: require("../../../assets/fonts/Inter-Medium.ttf"),
-    InterRegular: require("../../../assets/fonts/Inter-Regular.ttf"),
-    InterSemiBold: require("../../../assets/fonts/Inter-SemiBold.ttf"),
-    InterThin: require("../../../assets/fonts/Inter-Thin.ttf"),
-    DMSans: require("../../../assets/fonts/DMSans-Medium.ttf"),
-  });
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <SafeAreaView style={styles.safeArea}>

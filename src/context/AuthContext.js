@@ -13,18 +13,18 @@ export const AuthProvider = ({children}) => {
     const login = (username, senha) => {
         setIsLoading(true);
 
-        axios.post(`${BASE_URL}/login`, {
-            username, 
-            senha
-        })
-        .then(res => {
-            console.log(res.data)
-        }).catch(e => {
-            console.log(`Erro de login ${e}`)
-        });
+        // axios.post(`${BASE_URL}/login`, {
+        //     username, 
+        //     senha
+        // })
+        // .then(res => {
+        //     console.log(res.data)
+        // }).catch(e => {
+        //     console.log(`Erro de login ${e}`)
+        // });
 
-        // setUserToken('userTokenTest');
-        // AsyncStorage.setItem('userToken', 'userTokenTest')
+        setUserToken('userTokenTest');
+        AsyncStorage.setItem('userToken', 'userTokenTest')
         setIsLoading(false)
     }
 

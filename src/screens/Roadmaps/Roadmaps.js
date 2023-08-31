@@ -5,6 +5,8 @@ import React from "react";
 import styles from "./style";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
+import RoadmapList from "../../components/RoadmapList/RoadmapList";
+import CreateRoadmapButton from "../../components/Buttons/CreateRoadmapButton/CreateRoadmapButton";
 
 function Roadmaps({ navigation }) {
   const [loaded] = useFonts({
@@ -42,6 +44,9 @@ function Roadmaps({ navigation }) {
           <Icon name={"cog-outline"} size={40} color={"#306B34"} />
         </Pressable>
       </LinearGradient>
+
+      <RoadmapList />
+      <CreateRoadmapButton />
     </SafeAreaView>
   );
 }
