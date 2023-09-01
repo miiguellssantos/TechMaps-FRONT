@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-import { StatusBar } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import TabNavigation from "./src/navigation/TabNavigation";
-import AuthenticatorNavigation from "./src/navigation/AuthenticatorNavigation";
 import { AuthProvider } from "./src/context/AuthContext";
 import AppNav from "./src/navigation/AppNav";
 import { useFonts } from "expo-font";
 
-const Stack = createNativeStackNavigator();
-
 function App() {
-  const [islogged, setIsLogged] = useState(false);
 
   const [loaded, error] = useFonts({
     Righteous: require("./assets/fonts/Righteous-Regular.ttf"),

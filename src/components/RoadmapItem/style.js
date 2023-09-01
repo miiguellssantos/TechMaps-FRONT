@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { Padding, FontFamily, Border, FontSize, Color } from "./GlobalStyles";
 
 const styles = StyleSheet.create({
   body: {
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
   },
   roadmapItemTitle: {
     fontSize: 20,
-    color: Color.white,
+    color: "#FFF",
     textAlign: "left",
     fontFamily: "Righteous",
   },
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
   },
   textTypo: {
     marginLeft: 2,
-    color: Color.white,
+    color: "#FFF",
     fontFamily: "InterSemiBold",
     fontSize: 15,
   },

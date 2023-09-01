@@ -1,8 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { LinearGradient } from "expo-linear-gradient";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
 
 import RoadmapsStackScreen from "./RoadmapsStackScreeen";
 import DashboardStackScreen from "./DashboardStackScreen";
@@ -25,7 +25,13 @@ const TabNavigation = ({ navigation }) => {
           tabBarActiveTintColor: "#306B34",
           tabBarInactiveTintColor: "#306B34",
           tabBarStyle: {
-            backgroundColor: "#ACE894"
+            background: "linear-gradient(93deg, #EEE5E9 0%, #ACE894 100%)",
+            bottom: 10,
+            position: "absolute",
+            borderRadius: 10,
+            marginHorizontal: 10,
+            elevation: 0,
+            height: 50,
           },
           tabBarIcon: ({ color, focused }) => {
             let iconName;
@@ -46,8 +52,14 @@ const TabNavigation = ({ navigation }) => {
           },
         })}
       >
-        <Tab.Screen name={SCREEN_NAMES.ROADMAPS} component={RoadmapsStackScreen} />
-        <Tab.Screen name={SCREEN_NAMES.DASHBOARD} component={DashboardStackScreen} />
+        <Tab.Screen
+          name={SCREEN_NAMES.ROADMAPS}
+          component={RoadmapsStackScreen}
+        />
+        <Tab.Screen
+          name={SCREEN_NAMES.DASHBOARD}
+          component={DashboardStackScreen}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

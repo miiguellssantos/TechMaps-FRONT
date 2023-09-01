@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   roadmapsConcludos: {
     fontSize: 11,
-    fontWeight: "300",
+    fontFamily: "InterRegular"
   },
   texto: {
     overflow: "hidden",

@@ -1,26 +1,36 @@
 import React, { useContext } from "react";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import { View, Text, Button, TouchableOpacity, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from "../../context/AuthContext";
+import styles from "./style";
 
 const SettingsPage = ({ navigation }) => {
-    const { logout } = useContext(AuthContext);
-    
+  const { logout } = useContext(AuthContext);
+
   return (
-    <SafeAreaView>
-      <Button
-        title="< Back"
+    <SafeAreaView style={styles.body}>
+      <Pressable
+        style={{
+          backgroundColor: "#ACE894",
+          padding: 10,
+          width:71,
+          marginLeft: 10,
+          marginVertical: 10,
+          borderRadius: 10,
+          flexDirection: "row"
+        }}
         onPress={() => {
           navigation.goBack();
         }}
-      />
-      <Text> Hello World</Text>
+      >
+        <Text style={{ fontFamily: "Righteous", color: "#306B34", flex: 1}} >{`< Voltar`}</Text>
+      </Pressable>
 
       <TouchableOpacity
         style={{
           padding: 15,
           alignItems: "center",
-          backgroundColor: "#ACE894",
+          backgroundColor: "red",
           margin: 20,
           borderRadius: 20,
         }}

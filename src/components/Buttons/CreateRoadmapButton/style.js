@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { Color, Border, Padding } from "../../RoadmapItem/GlobalStyles";
 
 const styles = StyleSheet.create({
   btnCriarRoadmap: {
