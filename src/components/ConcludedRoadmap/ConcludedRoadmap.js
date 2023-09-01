@@ -1,16 +1,10 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity } from 'react-native'
+import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
-import styles from "./style";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import styles from '../RoadmapItem/style';
 
-const RoadmapItem = ({
-  roadmapTitle,
-  completedTasks,
-  totalTasks,
-  timeSpent,
-  commitsQuantity,
-}) => {
+const ConcludedRoadmap = ({ roadmapTitle, timeSpent, commitCounter }) => {
   return (
     <LinearGradient
       style={styles.roadmapItem}
@@ -28,12 +22,6 @@ const RoadmapItem = ({
         <View style={styles.stats}>
           <Text style={styles.roadmapItemTitle}>{roadmapTitle}</Text>
           <View style={styles.statLine1}>
-            <View style={styles.icon}>
-              <Icon name={"check-circle-outline"} size={25} color={"#FFF"} />
-              <Text style={styles.textTypo}>
-                {completedTasks}/{totalTasks}
-              </Text>
-            </View>
             <View style={styles.statLineRightItem}>
               <Icon name={"clock-time-nine-outline"} size={25} color={"#FFF"} />
               <Text style={styles.textTypo}>{timeSpent}</Text>
@@ -42,7 +30,7 @@ const RoadmapItem = ({
           <View style={styles.statLine1}>
             <Icon name={"source-commit"} size={25} color={"#FFF"} />
             <Text style={[styles.text2, styles.textTypo]}>
-              {commitsQuantity}
+              {commitCounter}
             </Text>
           </View>
         </View>
@@ -56,7 +44,7 @@ const RoadmapItem = ({
         </TouchableOpacity>
       </View>
     </LinearGradient>
-  );
-};
+  )
+}
 
-export default RoadmapItem;
+export default ConcludedRoadmap

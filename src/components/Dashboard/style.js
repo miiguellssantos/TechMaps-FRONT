@@ -1,6 +1,24 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+  dashboard: {
+    padding: 10,
+    marginTop: 15,
+    backgroundColor: "#306b34",
+    alignItems: "center",
+    alignSelf: "stretch",
+    justifyContent: "center",
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  linhaFlexBox: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    overflow: "hidden",
+    alignSelf: "stretch",
+  },
   iconSpaceBlock: {
     padding: 5,
     overflow: "hidden",
@@ -13,14 +31,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: "#fff",
   },
-  linhaFlexBox: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    overflow: "hidden",
-    alignSelf: "stretch",
-  },
+
   icon: {
     justifyContent: "center",
     alignItems: "center",
@@ -52,17 +63,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#fff",
   },
-  dashboard: {
-    marginTop: 15,
-    borderRadius: 10,
-    backgroundColor: "#306b34",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-    alignSelf: "stretch",
-    overflow: "hidden",
-  },
+  
 });
 
 export default styles;

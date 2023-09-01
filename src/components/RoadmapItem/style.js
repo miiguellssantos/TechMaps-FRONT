@@ -1,16 +1,13 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  body: {
-    marginTop: 5,
-    overflow: "hidden",
-  },
   roadmapItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 15,
     padding: 8,
     borderRadius: 15,
+    overflow: "hidden",
   },
   icon: {
     alignItems: "center",
@@ -29,10 +26,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   stats: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     padding: 3,
     marginLeft: 10,
   },

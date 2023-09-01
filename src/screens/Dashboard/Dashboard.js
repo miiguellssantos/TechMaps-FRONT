@@ -5,6 +5,7 @@ import { View, Text, Pressable } from "react-native";
 import styles from "../Roadmaps/style";
 import Dashboard from "../../components/Dashboard";
 import { LinearGradient } from "expo-linear-gradient";
+import ConcludedRoadmapList from "../../components/ConcludedRoadmapList/ConcludedRoadmapList";
 
 export default function DashBoard({ navigation }) {
   return (
@@ -34,7 +35,11 @@ export default function DashBoard({ navigation }) {
           <Icon name={"cog-outline"} size={40} color={"#306B34"} />
         </Pressable>
       </LinearGradient>
-      <Dashboard />
+      <View>
+        <Dashboard />
+        <Text style={{ color: "#FFF", marginTop: 10, fontFamily: "InterSemiBold" }}>Roadmaps Concluídos:</Text>
+        <ConcludedRoadmapList />
+      </View>
     </SafeAreaView>
   );
 }
