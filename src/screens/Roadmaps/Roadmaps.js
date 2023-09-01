@@ -45,8 +45,10 @@ function Roadmaps({ navigation }) {
         </Pressable>
       </LinearGradient>
 
-      <RoadmapList />
-      <CreateRoadmapButton />
+      <View style={styles.container}>
+        <RoadmapList />
+        <CreateRoadmapButton />
+      </View>
     </SafeAreaView>
   );
 }

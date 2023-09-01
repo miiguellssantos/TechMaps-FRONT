@@ -68,6 +68,8 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: "row",
   },
+  container: {
+  },
 });
 
 export default styles;
