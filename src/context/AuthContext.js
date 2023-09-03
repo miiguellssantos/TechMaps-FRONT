@@ -1,57 +1,61 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import React, {createContext, useState, useEffect} from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { BASE_URL } from "../config";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [userToken, setUserToken] = useState(null);
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [userToken, setUserToken] = useState(null);
+  const login = async (username, senha) => {
+    try {
+      const response = await axios.post(`http://localhost:8080/login`, {
+        username: username,
+        password: senha,
+      });
 
-    const login = (username, senha) => {
-        setIsLoading(true);
+      if (response.status !== 200) {
+        throw new Error('Network response was not ok');
+      }
 
-        // axios.post(`${BASE_URL}/login`, {
-        //     username, 
-        //     senha
-        // })
-        // .then(res => {
-        //     console.log(res.data)
-        // }).catch(e => {
-        //     console.log(`Erro de login ${e}`)
-        // });
+      const authorizationHeader = response.headers.authorization;
+      console.log('JWT:', authorizationHeader);
 
-        setUserToken('userTokenTest');
-        AsyncStorage.setItem('userToken', 'userTokenTest')
-        setIsLoading(false)
+      const body = response.data;
+      console.log('Response Body:', body);
+
+      return body;
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    const logout = () => {
-        setIsLoading(true)
-        setUserToken(null);
-        AsyncStorage.removeItem('userToken')
-        setIsLoading(false)
+  const logout = () => {
+    setIsLoading(true);
+    setUserToken(null);
+    AsyncStorage.removeItem("userToken");
+    setIsLoading(false);
+  };
+
+  const isLoggedIn = async () => {
+    try {
+      let userToken = await AsyncStorage.getItem("userToken");
+      setUserToken(userToken);
+      setIsLoading(false);
+    } catch (e) {
+      console.log(`isLoggedIn error ${e}`);
     }
+  };
 
-    const isLoggedIn = async() => {
-        try{
-            let userToken = await AsyncStorage.getItem('userToken')
-            setUserToken(userToken);
-            setIsLoading(false)
-        } catch(e) {
-            console.log(`isLogged in error ${e}`)
-        }
-    }
+  useEffect(() => {
+    isLoggedIn();
+  }, []);
 
-    useEffect(() => {
-        isLoggedIn();
-    }, [])
-
-    return (
-        <AuthContext.Provider value={{ isLoading, userToken, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+  return (
+    <AuthContext.Provider value={{ isLoading, userToken, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
