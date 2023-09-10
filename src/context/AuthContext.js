@@ -8,43 +8,67 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
-  const [dashboardId, setDashboardId] = useState(null)
-  const [dashboardInfo, setDashboardInfo] = useState(null)
+  const [dashboardId, setDashboardId] = useState(null);
+  const [dashboardInfo, setDashboardInfo] = useState(null);
+
+  const refreshToken = async () => {
+
+    const authorizationHeader = await AsyncStorage.getItem("userToken");
+
+    try {
+      const response = await axios.get("http://192.168.0.102:8080/refresh-token", {
+        headers: {
+          Authorization: userToken, // Envia o token atual no header da requisição
+        },
+      });
+
+      if (response.status === 200) {
+        const newToken = response.headers.authorization; // Obtém o novo token do header da resposta
+        AsyncStorage.setItem("userToken", newToken); // Atualiza o token no AsyncStorage
+        login(newToken); // Atualiza o token no estado do aplicativo (se você não tiver uma função de login, ajuste isso de acordo com a sua estrutura)
+      }
+      console.log("deu certo!")
+    } catch (error) {
+      console.error("Erro ao atualizar o token:", error);
+    }
+  };
 
   const postDashboard = async () => {
     try {
       let userInfo = await AsyncStorage.getItem("userInfo");
       userInfo = JSON.parse(userInfo);
       const userId = userInfo.uuid;
-      
-      // Obtém o token de autorização armazenado
+
       const authorizationHeader = await AsyncStorage.getItem("userToken");
-      
-      const response = await axios.post(`http://192.168.0.102:8080/api/v1/dashboard/${userId}`, null, {
-        headers: {
-          Authorization: authorizationHeader,
-        },
-      });
-  
+
+      const response = await axios.post(
+        `http://192.168.0.102:8080/api/v1/dashboard/${userId}`,
+        null,
+        {
+          headers: {
+            Authorization: authorizationHeader,
+          },
+        }
+      );
+
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }
-  
+
       const body = response.data;
-  
-      // Verifica se as informações foram retornadas corretamente
+
       if (body) {
         setDashboardInfo(body);
         AsyncStorage.setItem("dashboardInfo", JSON.stringify(body));
         console.log("Dashboard Info: ", body);
-  
+
         setDashboardId(body.dashboardId);
-        AsyncStorage.setItem("dashboardID", body.dashboardId.toString()); // Converte para string se necessário
+        AsyncStorage.setItem("dashboardID", body.dashboardId.toString());
         console.log("Dashboard ID: ", body.dashboardId);
       } else {
         console.error("Dashboard data is missing in the response.");
       }
-  
+
       return body;
     } catch (error) {
       console.error(error);
@@ -72,7 +96,8 @@ export const AuthProvider = ({ children }) => {
       AsyncStorage.setItem("userInfo", JSON.stringify(body));
       console.log("Response Body:", body);
 
-      postDashboard()
+      postDashboard();
+      refreshToken();
       return body;
     } catch (error) {
       console.error(error);
@@ -82,7 +107,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsLoading(true);
     setUserToken(null);
-    setUserInfo(null)
+    setUserInfo(null);
     AsyncStorage.removeItem("userInfo");
     AsyncStorage.removeItem("userToken");
     setIsLoading(false);
@@ -108,10 +133,22 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     isLoggedIn();
+    const intervalId = setInterval(refreshToken, 30 * 60 * 1000);
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoading, userToken, userInfo, dashboardId, dashboardInfo, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        isLoading,
+        userToken,
+        userInfo,
+        dashboardId,
+        dashboardInfo,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

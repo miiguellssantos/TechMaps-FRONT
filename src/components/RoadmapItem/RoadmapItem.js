@@ -6,8 +6,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const RoadmapItem = ({
   roadmapTitle,
-  completedTasks,
-  totalTasks,
   timeSpent,
   commitsQuantity,
 }) => {
@@ -28,16 +26,8 @@ const RoadmapItem = ({
         <View style={styles.stats}>
           <Text style={styles.roadmapItemTitle}>{roadmapTitle}</Text>
           <View style={styles.statLine1}>
-            <View style={styles.icon}>
-              <Icon name={"check-circle-outline"} size={25} color={"#FFF"} />
-              <Text style={styles.textTypo}>
-                {completedTasks}/{totalTasks}
-              </Text>
-            </View>
-            <View style={styles.statLineRightItem}>
-              <Icon name={"clock-time-nine-outline"} size={25} color={"#FFF"} />
-              <Text style={styles.textTypo}>{timeSpent}</Text>
-            </View>
+            <Icon name={"clock-time-nine-outline"} size={25} color={"#FFF"} />
+            <Text style={styles.textTypo}>{timeSpent}</Text>
           </View>
           <View style={styles.statLine1}>
             <Icon name={"source-commit"} size={25} color={"#FFF"} />
