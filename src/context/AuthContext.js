@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import React, { createContext, useState, useEffect } from "react";
-import { BASE_URL } from "../config";
 
 export const AuthContext = createContext();
 
@@ -11,20 +10,24 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, senha) => {
     try {
-      const response = await axios.post(`http://localhost:8080/login`, {
+      const response = await axios.post(`http://192.168.0.102:8080/login`, {
         username: username,
         password: senha,
       });
 
       if (response.status !== 200) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       const authorizationHeader = response.headers.authorization;
-      console.log('JWT:', authorizationHeader);
+      console.log("JWT:", authorizationHeader);
 
       const body = response.data;
-      console.log('Response Body:', body);
+      console.log("Response Body:", body);
+
+      setUserToken(body.uuid);
+      AsyncStorage.setItem("userToken", body.uuid);
+      setIsLoading(false);
 
       return body;
     } catch (error) {
