@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   const login = async (username, senha) => {
     try {
@@ -20,14 +21,14 @@ export const AuthProvider = ({ children }) => {
       }
 
       const authorizationHeader = response.headers.authorization;
+      setUserToken(authorizationHeader);
+      AsyncStorage.setItem("userToken", authorizationHeader);
       console.log("JWT:", authorizationHeader);
 
       const body = response.data;
+      setUserInfo(body);
+      AsyncStorage.setItem("userInfo", JSON.stringify(body));
       console.log("Response Body:", body);
-
-      setUserToken(body.uuid);
-      AsyncStorage.setItem("userToken", body.uuid);
-      setIsLoading(false);
 
       return body;
     } catch (error) {
@@ -38,14 +39,24 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsLoading(true);
     setUserToken(null);
+    setUserInfo(null)
+    AsyncStorage.removeItem("userInfo");
     AsyncStorage.removeItem("userToken");
     setIsLoading(false);
   };
 
   const isLoggedIn = async () => {
     try {
+      setIsLoading(true);
       let userToken = await AsyncStorage.getItem("userToken");
-      setUserToken(userToken);
+      let userInfo = await AsyncStorage.getItem("userInfo");
+      userInfo = JSON.parse(userInfo);
+
+      if (userInfo) {
+        setUserToken(userToken);
+        setUserInfo(userInfo);
+      }
+
       setIsLoading(false);
     } catch (e) {
       console.log(`isLoggedIn error ${e}`);
