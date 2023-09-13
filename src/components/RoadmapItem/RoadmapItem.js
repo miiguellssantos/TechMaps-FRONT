@@ -1,14 +1,10 @@
-import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import styles from "./style";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import styles from "./style";
 
-const RoadmapItem = ({
-  roadmapTitle,
-  timeSpent,
-  commitsQuantity,
-}) => {
+const RoadmapItem = ({ roadmapTitle, timeSpent, commitsQuantity }) => {
   return (
     <LinearGradient
       style={styles.roadmapItem}

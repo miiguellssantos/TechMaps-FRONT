@@ -11,23 +11,22 @@ export const AuthProvider = ({ children }) => {
   const [dashboardId, setDashboardId] = useState(null);
   const [dashboardInfo, setDashboardInfo] = useState(null);
 
+  const API_URL = "http://10.115.71.51:8080";
+
   const refreshToken = async () => {
-
-    const authorizationHeader = await AsyncStorage.getItem("userToken");
-
     try {
-      const response = await axios.get("http://192.168.0.102:8080/refresh-token", {
+      const userToken = await AsyncStorage.getItem("userToken");
+      const response = await axios.get(`${API_URL}/refresh-token`, {
         headers: {
-          Authorization: userToken, // Envia o token atual no header da requisição
+          Authorization: userToken,
         },
       });
 
       if (response.status === 200) {
-        const newToken = response.headers.authorization; // Obtém o novo token do header da resposta
-        AsyncStorage.setItem("userToken", newToken); // Atualiza o token no AsyncStorage
-        login(newToken); // Atualiza o token no estado do aplicativo (se você não tiver uma função de login, ajuste isso de acordo com a sua estrutura)
+        const newToken = response.headers.authorization;
+        AsyncStorage.setItem("userToken", newToken);
+        setUserToken(newToken);
       }
-      console.log("deu certo!")
     } catch (error) {
       console.error("Erro ao atualizar o token:", error);
     }
@@ -35,14 +34,12 @@ export const AuthProvider = ({ children }) => {
 
   const postDashboard = async () => {
     try {
-      let userInfo = await AsyncStorage.getItem("userInfo");
-      userInfo = JSON.parse(userInfo);
-      const userId = userInfo.uuid;
-
+      const userInfo = JSON.parse(await AsyncStorage.getItem("userInfo"));
+      const userId = userInfo.id;
       const authorizationHeader = await AsyncStorage.getItem("userToken");
 
       const response = await axios.post(
-        `http://192.168.0.102:8080/api/v1/dashboard/${userId}`,
+        `${API_URL}/api/v1/dashboards/${userId}`,
         null,
         {
           headers: {
@@ -51,56 +48,41 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      if (response.status !== 200) {
-        throw new Error("Network response was not ok");
-      }
-
-      const body = response.data;
-
-      if (body) {
+      if (response.status === 200) {
+        const body = response.data;
         setDashboardInfo(body);
         AsyncStorage.setItem("dashboardInfo", JSON.stringify(body));
-        console.log("Dashboard Info: ", body);
-
-        setDashboardId(body.dashboardId);
-        AsyncStorage.setItem("dashboardID", body.dashboardId.toString());
-        console.log("Dashboard ID: ", body.dashboardId);
+        setDashboardId(body.id);
+        AsyncStorage.setItem("dashboardId", body.id.toString());
       } else {
         console.error("Dashboard data is missing in the response.");
       }
-
-      return body;
     } catch (error) {
-      console.error(error);
+      console.error("Erro na criação de dashboard:", error);
     }
   };
 
   const login = async (username, senha) => {
     try {
-      const response = await axios.post(`http://192.168.0.102:8080/login`, {
-        username: username,
+      const response = await axios.post(`${API_URL}/login`, {
+        username,
         password: senha,
       });
 
-      if (response.status !== 200) {
-        throw new Error("Network response was not ok");
+      if (response.status === 200) {
+        const authorizationHeader = response.headers.authorization;
+        setUserToken(authorizationHeader);
+        AsyncStorage.setItem("userToken", authorizationHeader);
+
+        const body = response.data;
+        setUserInfo(body);
+        AsyncStorage.setItem("userInfo", JSON.stringify(body));
+
+        postDashboard();
+        refreshToken();
       }
-
-      const authorizationHeader = response.headers.authorization;
-      setUserToken(authorizationHeader);
-      AsyncStorage.setItem("userToken", authorizationHeader);
-      console.log("JWT:", authorizationHeader);
-
-      const body = response.data;
-      setUserInfo(body);
-      AsyncStorage.setItem("userInfo", JSON.stringify(body));
-      console.log("Response Body:", body);
-
-      postDashboard();
-      refreshToken();
-      return body;
     } catch (error) {
-      console.error(error);
+      console.error("Erro de login: ",error);
     }
   };
 
@@ -108,17 +90,20 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     setUserToken(null);
     setUserInfo(null);
+    setDashboardId(null)
+    setDashboardInfo(null)
     AsyncStorage.removeItem("userInfo");
     AsyncStorage.removeItem("userToken");
+    AsyncStorage.removeItem("dashboardId");
+    AsyncStorage.removeItem("dashboardInfo");
     setIsLoading(false);
   };
 
   const isLoggedIn = async () => {
     try {
       setIsLoading(true);
-      let userToken = await AsyncStorage.getItem("userToken");
-      let userInfo = await AsyncStorage.getItem("userInfo");
-      userInfo = JSON.parse(userInfo);
+      const userToken = await AsyncStorage.getItem("userToken");
+      const userInfo = JSON.parse(await AsyncStorage.getItem("userInfo"));
 
       if (userInfo) {
         setUserToken(userToken);
